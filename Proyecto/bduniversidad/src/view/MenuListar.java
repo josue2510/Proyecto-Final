@@ -52,8 +52,7 @@ public class MenuListar {
 				Iterator<Clase> it2 = clases.iterator();
 				while (it2.hasNext()) {
 					Clase c = it2.next();
-					System.out
-							.print(c.getIdEstudiante() + " " + c.getIdGrupo() + " " + c.getNota() + " " + c.getClass());
+					System.out.print(c.getIdEstudiante() + " " + c.getIdGrupo() + " " + c.getNota() );
 					System.out.println();
 					cons.getEstudiantes();
 				}

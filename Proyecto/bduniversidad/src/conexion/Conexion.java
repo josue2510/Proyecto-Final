@@ -16,7 +16,6 @@ public class Conexion {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             this.connection = DriverManager.getConnection("jdbc:mariadb://localhost/dbuniversidad", "root", "");
-            this.connection.setAutoCommit(false);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }
@@ -32,6 +31,7 @@ public class Conexion {
     
     public int modificacion() throws SQLException {
 		return sentencia.executeUpdate();
+		
 	}
 
     public static Conexion getInstance() throws SQLException {

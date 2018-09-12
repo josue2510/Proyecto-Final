@@ -1,6 +1,12 @@
 package entity;
 public class Clase {
-    private int idGrupo;
+    @Override
+	public String toString() {
+		return "Clase [idGrupo=" + idGrupo + ", idEstudiante=" + idEstudiante + ", nota=" + nota + "]";
+	}
+
+
+	private int idGrupo;
     private int idEstudiante;
     private int nota;
     public Clase (int idGrupo, int idEstudiante, int nota)
