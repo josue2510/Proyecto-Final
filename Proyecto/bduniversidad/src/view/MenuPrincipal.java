@@ -7,22 +7,32 @@ import conexion.Conexion;
 import control.Agregar;
 import control.Consultas;
 
-public class Menu {
+public class MenuPrincipal {
 	public static int encabezado(Scanner scanner) {
 		int opcion;
 
 		while (true) {
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
-			System.out.println("1. Agregar ");
-			System.out.println("2. Listar");
+			System.out.println("1. ingreso Alumnos ");
+			System.out.println("2. ingreso Docentes");
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 2) {
-				return opcion;
+			
+				switch (opcion) {
+				case 0:
+					break;
+				case 1:
+					MenuEstudiante.encabezadoEstudiante(scanner);
+					break;
+				case 2:
+					MenuDocente.encabezadoDocente(scanner);
+					break;
+			
+				
 			}
 		}
 	}
@@ -32,8 +42,7 @@ public class Menu {
 		boolean salir = false;
 		
 		Conexion conexión = new Conexion("root","","dbuniversidad");
-		Agregar agregar = new Agregar(conexión, scanner);
-		Consultas cons = new Consultas();
+		
 		
 		//ProductosIO productosIO = new ProductosIO(conexión, scanner);
 		
@@ -43,15 +52,14 @@ public class Menu {
 				salir = true;
 				break;
 			case 1:
-				MenuAgregar.menú(scanner, agregar);
+				MenuEstudiante.encabezadoEstudiante(scanner);
 				break;
 			case 2:
-				MenuListar.menú(scanner, cons);
+				MenuDocente.encabezadoDocente(scanner);
 				break;
 		
 			}
 		}
 		conexión.close();
 	}
-
 }

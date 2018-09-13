@@ -183,5 +183,52 @@ public class Consultas {
 		}
 		return clases;
 	}
+	public Docente getUserPassword(String user, String password) {
+		Docente res = new Docente(0, "", "", "", 0, "", "");
+		try {
+			Connection con = Conexion.getInstance().getConnection();
+			String sql = "SELECT d.IdDocente, d.IdPersona, p.nombre, p.email, p.direccion\r\n" + 
+					"FROM docente d, persona p\r\n" + 
+					"WHERE d.Username='"+user+"' AND d.Password='"+password+"' AND p.IdPersona=d.IdPersona ";
+			Statement st= con.createStatement();
+			ResultSet rs=st.executeQuery(sql);
+			while(rs.next()) {
+				int idPersona=rs.getInt(1);
+				int idDocente = rs.getInt(2);
+				String nombre = rs.getString(3);
+				String email = rs.getString(4);
+				String direccion = rs.getString(5);
+
+				Docente doc= new Docente(idPersona, nombre, email, direccion, idDocente, user, password);
+				res=doc;
+				
+			}
+			
+		}catch(Exception e) {
+			
+		}return res;
+	}
+	public Estudiante getEstudiante(int idEstudiante) {
+		Estudiante res= new Estudiante(0,"", "","", 0);
+		try {
+			Connection con= Conexion.getInstance().getConnection();
+			String sql = "SELECT *\r\n" + 
+					"FROM estudiante e, persona p\r\n" + 
+					"WHERE e.IdPersona=p.IdPersona AND e.IdEstudiante = "+idEstudiante;
+			Statement st = con.createStatement();
+			ResultSet rs= st.executeQuery(sql);
+			while(rs.next()) {
+				int idPersona = rs.getInt(2);
+				String nombre = rs.getString(4);
+				String email = rs.getString(5);
+				String direccion = rs.getString(6);
+				Estudiante e = new Estudiante(idPersona, nombre, email, direccion, idEstudiante);
+				res = e;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return res;
+	}
 	
 }

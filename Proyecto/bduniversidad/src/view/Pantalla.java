@@ -3,23 +3,24 @@ package view;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Pantalla {
+import entity.Docente;
+import entity.Estudiante;
 
+public class Pantalla {
+	
+	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
-		try {
-			view.Menu.menú(scanner);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		MenuPrincipal.encabezado(scanner);
+	
 		
 		scanner.close();
 		
 		
 		
 	}
+
+
  
 }

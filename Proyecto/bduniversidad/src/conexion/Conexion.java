@@ -15,7 +15,7 @@ public class Conexion {
     public Conexion(String user, String password, String dataBase) throws SQLException {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost/dbuniversidad", "root", "");
+            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost/bduniversidad", "root", "");
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }

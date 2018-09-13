@@ -6,12 +6,35 @@ import java.util.Scanner;
 import conexion.Conexion;
 import control.Agregar;
 import control.Consultas;
+import entity.Docente;
+import entity.Estudiante;
 
-public class Menu {
-	public static int encabezado(Scanner scanner) {
+public class MenuEstudiante {
+	
+	
+	public static int encabezadoEstudiante(Scanner scanner) {
 		int opcion;
+		Consultas cons = new Consultas();
 
 		while (true) {
+			boolean aceptado = false;
+			while(!aceptado)
+			{
+				System.out.println("Introduzca idEstudiante");
+				int idEstudiante = scanner.nextInt();
+				
+				Estudiante estudiante = cons.getEstudiante(idEstudiante);
+				
+				if(estudiante.getIdEstudiante()==0) {
+					System.out.println("Vuelva a introducir los datos");
+					}
+				
+				else {
+					aceptado=true;
+				}
+			}
+			
+			
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
 			System.out.println("1. Agregar ");
@@ -38,7 +61,7 @@ public class Menu {
 		//ProductosIO productosIO = new ProductosIO(conexión, scanner);
 		
 		while (!salir) {
-			switch (encabezado(scanner)) {
+			switch (encabezadoEstudiante(scanner)) {
 			case 0:
 				salir = true;
 				break;
