@@ -230,5 +230,29 @@ public class Consultas {
 		}
 		return res;
 	}
+
+	public String[] getBalance(int idEstudiante) {
+		String sql = "SELECT  persona.nombre, SUM(creditos)-SUM(gasto)\r\n" + 
+				"FROM pagos, estudiante, persona,gastoscreditosestudiante\r\n" + 
+				"WHERE pagos.IdEstudiante=estudiante.IdEstudiante AND estudiante.IdPersona = persona.IdPersona AND estudiante.IdEstudiante = gastoscreditosestudiante.idEstudiante AND estudiante.IdEstudiante=1\r\n" + 
+				"GROUP BY estudiante.IdEstudiante";
+		String[] res = new String[2];
+		try {
+			Connection con= Conexion.getInstance().getConnection();
+			Statement st = con.createStatement();
+			ResultSet rs= st.executeQuery(sql);
+			while(rs.next()) {
+				String nombre = rs.getString(1);
+				String balance = rs.getString(2);
+				res[0] = nombre;
+				res[1] = balance;
+				
+				
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return res;
+	}
 	
 }

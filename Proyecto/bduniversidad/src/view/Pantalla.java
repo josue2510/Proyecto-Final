@@ -2,7 +2,7 @@ package view;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
+import view.MenuPrincipal;
 import entity.Docente;
 import entity.Estudiante;
 
@@ -10,14 +10,10 @@ public class Pantalla {
 	
 	
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		MenuPrincipal m1= new MenuPrincipal();
 		
-		MenuPrincipal.encabezado(scanner);
+		
 	
-		
-		scanner.close();
-		
-		
 		
 	}
 
