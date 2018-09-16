@@ -3,7 +3,6 @@ package view;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import conexion.Conexion;
 import control.Agregar;
 import control.Consultas;
