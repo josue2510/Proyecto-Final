@@ -3,11 +3,13 @@ package control;
 
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import conexion.Conexion;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import entity.Clase;
 import entity.Docente;
@@ -16,12 +18,11 @@ import entity.Grupo;
 import entity.Materia;
 import entity.Pagos;
 import entity.Persona;
+import view.InputTypes;
 
 public class Consultas {
 	public Conexion con;
-
-	public Consultas() {
-	}
+	public Scanner scanner;
 
 	public ArrayList<Materia> getMateria() {
 		ArrayList<Materia> materias = new ArrayList<Materia>();
@@ -62,6 +63,7 @@ public class Consultas {
 				String[] fila = { nombreDocente, nombreMateria, fechaFin };
 				res.add(fila);
 			}
+			st.close();
 		} catch (Exception e) {
 
 		}
@@ -87,7 +89,7 @@ public class Consultas {
 				String[] fila = { nombreDocente, nombreMateria, fechaFin };
 				res.add(fila);
 			}
-
+			st.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -108,10 +110,11 @@ public class Consultas {
 				String nombre = rs.getString(1);
 				String materia = rs.getString(2);
 				String nota = rs.getString(3);
-				String[] fila = { nombre,materia,nota};
+				String[] fila = { nombre, materia, nota };
 				res.add(fila);
 
 			}
+			st.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -137,6 +140,7 @@ public class Consultas {
 				Estudiante e = new Estudiante(idpersona, nombre, email, direccion, idestudiante);
 				estudiantes.add(e);
 			}
+			st.close();
 		} catch (Exception e) {
 		}
 		return estudiantes;
@@ -186,6 +190,7 @@ public class Consultas {
 				Grupo g = new Grupo(idGrupo, idMateria, idDocente, fechaInicio, fechaFin);
 				grupos.add(g);
 			}
+			st.close();
 		} catch (Exception e) {
 		}
 		return grupos;
@@ -207,6 +212,7 @@ public class Consultas {
 				Persona p = new Persona(idPersona, nombre, email, direccion);
 				personas.add(p);
 			}
+			st.close();
 		} catch (Exception e) {
 		}
 		return personas;
@@ -230,6 +236,7 @@ public class Consultas {
 				Pagos p = new Pagos(idPago, creditos, costo, idEstudiante);
 				pagos.add(p);
 			}
+			st.close();
 		} catch (Exception e) {
 		}
 		return pagos;
@@ -250,7 +257,8 @@ public class Consultas {
 
 				Clase c = new Clase(idGrupo, idEstudiante, nota);
 				clases.add(c);
-			}
+			}			
+			st.close();
 		} catch (Exception e) {
 		}
 		return clases;
@@ -276,7 +284,7 @@ public class Consultas {
 				res = doc;
 
 			}
-
+			st.close();
 		} catch (Exception e) {
 
 		}
@@ -299,6 +307,7 @@ public class Consultas {
 				Estudiante e = new Estudiante(idPersona, nombre, email, direccion, idEstudiante);
 				res = e;
 			}
+			st.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -322,10 +331,55 @@ public class Consultas {
 				res[1] = balance;
 
 			}
+			st.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return res;
+	}
+
+	public String[] PagosEstudiante(int IdEstudiante) throws SQLException {
+		String sql = "SELECT p.IDpago,p.IDestudiante,p.Costo\\r\\n\" + \r\n"
+				+ "				\"  FROM estudiante e INNER JOIN pagos p\\r\\n\" + \r\n"
+				+ "				\"  ON p.IDestudiante = e.IDestudiante\\r\\n\" + \r\n"
+				+ "				\"  WHERE pagos.IdEstudiante=estudiante.IdEstudiante AND estudiante.IdPersona = persona.IdPersona AND estudiante.IdEstudiante = gastoscreditosestudiante.idEstudiante AND estudiante.IdEstudiante=1\\r\\n\"\r\n"
+				+ "				+ \"GROUP BY estudiante.IdEstudiante\"";
+		String[] res = new String[2];
+		try {
+			Connection con = Conexion.getInstance().getConnection();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String nombre = rs.getString(1);
+				String pagos = rs.getString(2);
+				res[0] = nombre;
+				res[1] = pagos;
+			}
+			st.close();
+		} catch (Exception e) {
+		}
+		return res;
+	}
+
+	public ArrayList<Materia> CostoMateria() {
+		ArrayList<Materia> materias = new ArrayList<Materia>();
+		try {
+			Connection con = Conexion.getInstance().getConnection();
+			String sql = "select m.Nombre,m,CostoCreditos" + "From materia m";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				int idMateria = rs.getInt(1);
+				String nombre = rs.getString(2);
+				int costo = rs.getInt(3);
+				int duracionDias = rs.getInt(4);
+				Materia m = new Materia(idMateria, nombre, costo, duracionDias);
+				materias.add(m);
+			}
+			st.close();
+		} catch (Exception e) {
+		}
+
+		return materias;
 	}
 
 }

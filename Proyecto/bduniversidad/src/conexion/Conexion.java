@@ -3,6 +3,7 @@ package conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Conexion {
@@ -27,6 +28,10 @@ public class Conexion {
     
     public void consulta(String sql) throws SQLException   {
 		sentencia = connection.prepareStatement(sql);
+	}
+    
+    public ResultSet resultado() throws SQLException  {
+		return sentencia.executeQuery();
 	}
     
     public int modificacion() throws SQLException {

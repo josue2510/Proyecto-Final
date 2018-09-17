@@ -12,7 +12,7 @@ public class MenuPrincipal {
 	Scanner scanner = new Scanner(System.in);
 	Consultas cons = new Consultas();
 
-	public MenuPrincipal() {
+	public MenuPrincipal() throws SQLException, ClassNotFoundException {
 
 		System.out.println("Elija una opcion: ");
 		System.out.println("--------------------------------");
@@ -22,7 +22,7 @@ public class MenuPrincipal {
 		int eleccion = scanner.nextInt();
 		switch (eleccion) {
 		case 1:
-			MenuEstudiante m = new MenuEstudiante();
+			new MenuEstudiante();
 			break;
 		case 2:
 			MenuDocente();
@@ -74,7 +74,7 @@ public class MenuPrincipal {
 			Agregar agregar = new Agregar(conexión, scanner);
 			switch (opcion) {
 			case 0:
-				MenuPrincipal m = new MenuPrincipal();
+				new MenuPrincipal();
 				break;
 			case 1:
 				MenuAgregar.menú(scanner, agregar);

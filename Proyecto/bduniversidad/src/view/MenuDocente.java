@@ -1,13 +1,11 @@
 package view;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import conexion.Conexion;
 import control.Agregar;
 import control.Consultas;
 import entity.Docente;
-import entity.Estudiante;
 
 public class MenuDocente {
 	
@@ -71,9 +69,7 @@ public class MenuDocente {
 		Conexion conexión = new Conexion("root","","dbuniversidad");
 		Agregar agregar = new Agregar(conexión, scanner);
 		Consultas cons = new Consultas();
-		
-		//ProductosIO productosIO = new ProductosIO(conexión, scanner);
-		
+				
 		while (!salir) {
 			switch (encabezadoDocente(scanner)) {
 			case 0:
